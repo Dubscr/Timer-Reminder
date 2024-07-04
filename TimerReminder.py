@@ -1,4 +1,4 @@
-# link to lab https://amrita.olabs.edu.in/?sub=79&brch=16&sim=126&cnt=4
+# link to lab https://amrita.olabs.edu.in/?sub=79&brch=16&sim=126&cnt=4``
 import playsound
 import os
 import time
@@ -7,6 +7,7 @@ import webbrowser
 
 # Grabs directory path of this file
 dir_path = os.path.dirname(os.path.realpath(__file__)).replace("\\", "/")
+print("Dir: " + dir_path)
 
 # This defines when the current timer interval is ended.
 # This gets set to true when the timer is done with its 
@@ -48,15 +49,14 @@ if(loop):
 
 # Set start time
 startTime = time.time()
+print("Time started. To cancel, press \\")
 
 # Calls final function, then stops script.
 def OnExit():
     if(isLink):
         webbrowser.open(linkOrThing)
     else:
-        for x in range(10):
-            print(linkOrThing)
-    exit()
+        exit()  
 
 # Get time in seconds since timer start
 def GetCurrentTime(roundToWhole = False):
@@ -71,7 +71,8 @@ def GetTimeLeft(roundToWhole = False):
 
 # When timer has reached it's end. It plays sound and checks if it should exit (Only if finite looping is set).
 def OnTimerFinish():
-    playsound.playsound(dir_path + "/HelloWorld.mp3")
+    playsound.playsound(dir_path + "/DEST/HelloWorld.mp3")
+    print(linkOrThing)
     if(loopAmount != 0 and timesLooped >= loopAmount):
         OnExit()
 
