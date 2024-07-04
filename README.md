@@ -1,4 +1,4 @@
-# Timer-Reminder-Thing
+# Timer-Reminder
  This is a timer that you can set to keep telling you to get to work. This is good for people who have a hard time focusing or have poor memory, such as myself.
 
 # Can I change the audio that plays?
