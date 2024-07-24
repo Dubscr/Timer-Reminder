@@ -1,4 +1,5 @@
-# link to lab https://amrita.olabs.edu.in/?sub=79&brch=16&sim=126&cnt=4``
+# link to lab https://amrita.olabs.edu.in/?sub=79&brch=16&sim=126&cnt=4
+
 import playsound
 import os
 import time
@@ -7,7 +8,6 @@ import webbrowser
 
 # Grabs directory path of this file
 dir_path = os.path.dirname(os.path.realpath(__file__)).replace("\\", "/")
-print("Dir: " + dir_path)
 
 # This defines when the current timer interval is ended.
 # This gets set to true when the timer is done with its 
@@ -25,45 +25,39 @@ timesLooped = 0
 
 # Amount of times that it will loop (Set by user).
 loopAmount = 1
-initialTimeToWait = 0
-minutesToWait = 0
-def Start():
-    # Make sure that user cannot put wrong input in. If they do put wrong input, tell user and exit.
+
+# Make sure that user cannot put wrong input in. If they do put wrong input, tell user and exit.
+try:
+    minutesToWait = input("In how many minutes do you want to be reminded? \n")
+    minutesToWait = int(minutesToWait) * 60
+    initialTimeToWait = minutesToWait
+except:
+    print("Invalid input: Must answer with an integer (1, 2, 3, ...).")
+    exit()
+try:
+    loop = bool(int(input("Do you want it to loop? no: 0 yes: 1\n")))
+except:
+    print("Invalid input: Must answer with an integer such as: -> '0' (no) or '1' (yes)")
+    exit()
+
+if(loop):
     try:
-        global minutesToWait
-        minutesToWait = input("In how many minutes do you want to be reminded? \n")
-        minutesToWait = int(minutesToWait) * 60
-        global initialTimeToWait
-        initialTimeToWait= minutesToWait
+        loopAmount = int(input("How many times do you want it to loop before ending timer and reminding you for the last time (opens link if link)? \n"))
     except:
         print("Invalid input: Must answer with an integer (1, 2, 3, ...).")
-    try:
-        global loop
-        loop = bool(int(input("Do you want it to loop? no: 0 yes: 1\n")))
-    except:
-        print("Invalid input: Must answer with an integer such as: -> '0' (no) or '1' (yes)")
-
-    if(loop):
-        try:
-            global loopAmount
-            loopAmount = int(input("How many times do you want it to loop before ending timer and reminding you for the last time (opens link if link)? \n"))
-        except:
-            print("Invalid input: Must answer with an integer (1, 2, 3, ...).")
-
-Start()
-
+        exit()
 
 # Set start time
 startTime = time.time()
-print("Time started. To cancel, press \\")
 
 # Calls final function, then stops script.
 def OnExit():
     if(isLink):
         webbrowser.open(linkOrThing)
     else:
-        time.sleep(5)
-        exit()  
+        for x in range(10):
+            print(linkOrThing)
+    exit()
 
 # Get time in seconds since timer start
 def GetCurrentTime(roundToWhole = False):
@@ -78,17 +72,12 @@ def GetTimeLeft(roundToWhole = False):
 
 # When timer has reached it's end. It plays sound and checks if it should exit (Only if finite looping is set).
 def OnTimerFinish():
-    playsound.playsound(dir_path + "/DEST/HelloWorld.mp3")
-    print(linkOrThing)
-    global loopAmount
+    playsound.playsound(dir_path + "/HelloWorld.mp3")
     if(loopAmount != 0 and timesLooped >= loopAmount):
         OnExit()
 
 # Main Loop. Runs until stop when not looping.
 while(completed == False or loop):    
-    if (keyboard.release('\\')):  
-        exit()
-        
     if(GetCurrentTime() >= minutesToWait):
         completed = True
 
@@ -102,10 +91,3 @@ while(completed == False or loop):
             OnTimerFinish()
             minutesToWait += initialTimeToWait
             completed = False
-# Checking for key 'press'. This needs further optimization, as it is constantly checking.
-while(completed == False or loop):
-    ### Why I did release instead of pressed:
-    # if key '\' is released. This is to optimize key pressing
-    # as constantly checking would cause performance issues.
-    # There is a better way of doing this, but this works for now.
-    print("Is checking for release")
