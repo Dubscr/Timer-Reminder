@@ -51,10 +51,12 @@ startTime = time.time()
 def OnExit():
     if(isLink):
         webbrowser.open(linkOrThing)
+        exit()
     else:
         for x in range(10):
             print(linkOrThing)
-    exit()
+        input("Press enter to exit.")
+        exit()
 
 # Get time in seconds since timer start
 def GetCurrentTime(roundToWhole = False):
