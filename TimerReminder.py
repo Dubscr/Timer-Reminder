@@ -1,9 +1,6 @@
-# link to lab https://amrita.olabs.edu.in/?sub=79&brch=16&sim=126&cnt=4
-
 import playsound
 import os
 import time
-import keyboard
 import webbrowser
 
 # Grabs directory path of this file
@@ -72,7 +69,7 @@ def GetTimeLeft(roundToWhole = False):
 
 # When timer has reached it's end. It plays sound and checks if it should exit (Only if finite looping is set).
 def OnTimerFinish():
-    playsound.playsound(dir_path + "/HelloWorld.mp3")
+    playsound.playsound(dir_path + "/DEST/HelloWorld.mp3")
     if(loopAmount != 0 and timesLooped >= loopAmount):
         OnExit()
 
